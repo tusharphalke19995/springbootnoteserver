@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "4a7f628d-566d-48f4-87aa-11d359559a99",
+		"name": "Note and Constitute Element",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14358872",
+		"_exporter_link": ""
+	},
+	"item": [
+		{
+			"name": "Note",
+			"item": [
+				{
+					"name": "Create Note",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"note\": \"This is the case note 3\",\r\n  \"caseId\": \"82c292bc22804f13995dfab40c60c9be\",\r\n  \"submittedById\": \"04ef1d73f1824cd4b1609f3f8255e136\",\r\n  \"constituteElements\": [\r\n    \"fba1b6bc-c2a0-405b-8d83-a37501b34981\",\r\n    \"1e7bb69c-f830-44e1-8d72-80ee57ad21a4\",\r\n    \"8a65a143-5702-4de5-86b3-40cb5644fa69\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/note/note/v1/create",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"note",
+								"note",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Note",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"note\": \"This is the case note for update\",\r\n  \"caseId\": \"82c292bc22804f13995dfab40c60c9be\",\r\n  \"submittedById\": \"04ef1d73f1824cd4b1609f3f8255e136\",\r\n  \"constituteElements\": [\r\n    \"1e7bb69c-f830-44e1-8d72-80ee57ad21a4\",\r\n    \"aa7775e8-7348-4159-a835-3b16c2b252a7\",\r\n    \"8a65a143-5702-4de5-86b3-40cb5644fa69\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/note/note/v1/update/{{noteId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"note",
+								"note",
+								"v1",
+								"update",
+								"{{noteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Note By Id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/note/note/v1/get/{{noteId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"note",
+								"note",
+								"v1",
+								"get",
+								"{{noteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Note",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/note/note/v1/getAll",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"note",
+								"note",
+								"v1",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Constitute Element",
+			"item": [
+				{
+					"name": "All Element By CaseId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/element/element/v1/getAll/{{caseId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"element",
+								"element",
+								"v1",
+								"getAll",
+								"{{caseId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create element",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"caseId\": \"82c292bc22804f13995dfab40c60c9be\",\r\n    \"value\": \"Cheque must be returned unpaid due to insufficient funds or it exceeds the amount arranged\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/element/element/v1/create",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"element",
+								"element",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

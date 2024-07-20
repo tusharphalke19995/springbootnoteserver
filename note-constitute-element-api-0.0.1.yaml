@@ -1,0 +1,236 @@
+openapi: 3.0.0
+info:
+  title: Note and Constitute element registry
+  description: |
+    This draft API specification defines the Note and Constitute element registries.
+  version: 0.1.0
+tags:
+  - name: Note
+    description: APIs to create, update, getAll and getByCaseId for a case.
+  - name: Element
+    description: APIs related to creating, getAll to a case.
+paths:
+  /case/v1/create:
+    post:
+      tags:
+        - Note
+      summary: Create new note in the registry
+      description: |
+        Creates a new note in the note registry to a case
+      requestBody:
+        description: Details for the new note.
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/NoteDto'
+        required: true
+      responses:
+        '201':
+          description: NoteInfo with caseId and constitute element created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NoteDto'
+        '400':
+          description: Note creation failed
+          content:
+            '*/*':
+              schema:
+                $ref: >-
+                  https://raw.githubusercontent.com/egovernments/DIGIT-OSS/master/core-services/docs/common-contract_v1-1.yml#/components/schemas/ErrorRes
+  /case/v1/update:
+    post:
+      tags:
+        - Note
+      summary: Update a Note
+      description: |
+        API to update the note. Updates can include constitute element change, new note or deletion of note some part .
+      requestBody:
+        description: Details for updating all editable fields in the note
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/NoteDto'
+        required: true
+      responses:
+        '200':
+          description: NoteDto with caseId details updated successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NoteDto'
+        '400':
+          description: Note updation failed
+          content:
+            '*/*':
+              schema:
+                $ref: >-
+                  https://raw.githubusercontent.com/egovernments/DIGIT-OSS/master/core-services/docs/common-contract_v1-1.yml#/components/schemas/ErrorRes
+ /case/v1/getAll:
+    post:
+      tags:
+        - Note
+      summary: Getting all the created note for the caseId
+      requestBody:
+        description: CaseId
+        content:
+          '*/*':
+          schema:
+            $ref: 'caseId'
+        required: true
+      responses:
+        '200':
+          description: All the note list. Empty array is returned in case no note matched the noteId.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NoteDto'
+        '400':
+          description: Failed to get the note to be added to the case
+          content:
+            '*/*':
+              schema:
+                $ref: >-
+                  https://raw.githubusercontent.com/egovernments/DIGIT-OSS/master/core-services/docs/common-contract_v1-1.yml#/components/schemas/ErrorRes
+  /case/v1/get:
+    post:
+      tags:
+        - Note
+      summary: Getting note by the noteId
+      requestBody:
+        description: noteId required to get note details in the path
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/NoteDto'
+        required: true
+      responses:
+        '200':
+          description: Note info with matching the noteId. empty object if not note available for noteid
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NotDto'
+        '400':
+          description: Failed to fetch note by noteid
+          content:
+            '*/*':
+              schema:
+                $ref: >-
+                  https://raw.githubusercontent.com/egovernments/DIGIT-OSS/master/core-services/docs/common-contract_v1-1.yml#/components/schemas/ErrorRes
+  /element/v1/create:
+    post:
+      tags:
+        - Element
+      summary: API to add a constitute element to a case
+      description: |
+        API to create a constitute to a case
+      requestBody:
+        description: Details for the constitute element
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/ConstituteElementDto'
+        required: true
+      responses:
+        '201':
+          description: Constitute element mapping to case created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConstituteElementDto'
+        '400':
+          description: Constitute element creating mapping to case failed
+          content:
+            '*/*':
+              schema:
+                $ref: >-
+                  https://raw.githubusercontent.com/egovernments/DIGIT-OSS/master/core-services/docs/common-contract_v1-1.yml#/components/schemas/ErrorRes
+  /element/v1/getAll:
+     post:
+      tags:
+        - Element
+      summary: API to get all constitite element to a case.
+      description: |
+        API to get all element value to a case
+      requestBody:
+        description: Pass caseid in the path
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/ConstituteElementDto'
+        required: true
+      responses:
+        '200':
+          description: Array of Constitute element to a case
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConstituteElementDto'
+        '400':
+          description: Constitute element get data failed
+          content:
+            '*/*':
+              schema:
+                $ref: >-
+                  https://raw.githubusercontent.com/egovernments/DIGIT-OSS/master/core-services/docs/common-contract_v1-1.yml#/components/schemas/ErrorRes
+  
+components:
+  schemas:
+    Note:
+      description: Note registry
+      required:
+        - note
+        - csaeId
+        - submittedById
+        - constituteElements
+      oneOf:
+        - required: [note, caseId]
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: This id is autogenerated id of the note. It is the primary key
+          readOnly: true
+          minLength: 36
+          maxLength: 36
+        case_id:
+          type: string
+          description: This is caseID where the note will attached to case.
+          minLength: 36
+          maxLength: 36
+        note:
+          type: string
+          description: A simple note to refer to the case.
+          minLength: 2
+          maxLength: 10000
+        created_date:
+          type: string
+          format: date
+          description: Date of note create in epoch time. This is the date when the note entered in the case.
+          example: 1709542147
+        modified_date:
+          type: string
+          format: date
+          description: Date of note modified in epoch time. This is the date when the note will edited by assinged role use].
+          example: 1709542147
+        submitted_by_id:
+          type: string
+          description: This is user id where the note will created by the user.
+          minLength: 36
+          maxLength: 36
+        constitute_elements:
+          type: array
+          description: This is list of constitite element uuid where constitute element attached to a case.
+
+    responses_and_request_info:
+      properties:
+        cases:
+          type: object
+          items:
+            $ref: '#/components/schemas/NoteDto'.
+        constitute:
+          type: object
+          items:  
+            $ref: '#/components/schemas/ConstituteElementDto'
