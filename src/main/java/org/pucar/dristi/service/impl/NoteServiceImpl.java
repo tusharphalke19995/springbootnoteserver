@@ -59,7 +59,7 @@ public class NoteServiceImpl implements NoteService {
         note.setCaseId(noteDto.getCaseId());
         note.setModifiedDate(LocalDate.now());
         note.setSubmittedById(noteDto.getSubmittedById());
-        note.setConstituteElements(note.getConstituteElements());
+        note.setConstituteElements(noteDto.getConstituteElements());
 
         Note updatedNote = noteRepository.save(note);
         return NoteMapper.mapToNoteDto(updatedNote);
