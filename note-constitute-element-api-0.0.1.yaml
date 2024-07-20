@@ -66,7 +66,7 @@ paths:
               schema:
                 $ref: >-
                   https://raw.githubusercontent.com/egovernments/DIGIT-OSS/master/core-services/docs/common-contract_v1-1.yml#/components/schemas/ErrorRes
- /case/v1/getAll:
+  /case/v1/getAll:
     post:
       tags:
         - Note
@@ -76,7 +76,7 @@ paths:
         content:
           '*/*':
           schema:
-            $ref: 'caseId'
+            $ref: '#caseId'
         required: true
       responses:
         '200':
@@ -181,7 +181,7 @@ components:
       description: Note registry
       required:
         - note
-        - csaeId
+        - caseId
         - submittedById
         - constituteElements
       oneOf:
