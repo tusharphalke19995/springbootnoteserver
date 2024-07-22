@@ -1,0 +1,285 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Note and Constitute element registry",
+    "description": "This draft API specification defines the Note and Constitute element registries.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Note OPEN API url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "NoteApiController",
+      "description": "APIs to create, update, getAll and getByCaseId for a case."
+    },
+    {
+      "name": "ConstituteElementApiController",
+      "description": "APIs related to create and getAll constitute element to a case."
+    }
+  ],
+  "paths": {
+    "/note/note/v1/update/{id}": {
+      "put": {
+        "tags": [
+          "NoteApiController"
+        ],
+        "summary": "Update/edit a note",
+        "description": "API to update the note. Updates can include constitute element change, new note or deletion of note some part.",
+        "operationId": "updateCaseNote",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoteDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/note/v1/create": {
+      "post": {
+        "tags": [
+          "NoteApiController"
+        ],
+        "summary": "Create new note in the registry",
+        "description": "Open APi for create a new note in the note registry to a case",
+        "operationId": "createCaseNote",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoteDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/element/element/v1/create": {
+      "post": {
+        "tags": [
+          "ConstituteElementApiController"
+        ],
+        "summary": "Create new constitute element in the registry",
+        "description": "API to create a constitute element registry to a case",
+        "operationId": "createElement",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConstituteElementDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConstituteElementDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/note/v1/getAll/{caseId}": {
+      "get": {
+        "tags": [
+          "NoteApiController"
+        ],
+        "summary": "Get all the created note for the case",
+        "description": "Api for getting all note to a case",
+        "operationId": "getAllCaseNotesById",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NoteDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/note/v1/get/{id}": {
+      "get": {
+        "tags": [
+          "NoteApiController"
+        ],
+        "summary": "Get note details",
+        "description": "Api for getting the note details by note id",
+        "operationId": "getNoteById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/element/element/v1/getAll/{caseId}": {
+      "get": {
+        "tags": [
+          "ConstituteElementApiController"
+        ],
+        "summary": " Get all constitute element list to a case.",
+        "description": "API to get all constitute element list by caseId",
+        "operationId": "getAllElements",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConstituteElementDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NoteDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "caseId": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "submittedById": {
+            "type": "string"
+          },
+          "constituteElements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ConstituteElementDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "caseId": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
